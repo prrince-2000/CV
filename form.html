@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <title>Form</title>
+</head>
+<style>
+    h1 {
+        text-align: center;
+    }
+</style>
+
+<body>
+    <div class="container">
+        <h1>FORM VAIDATION</h1>
+        <div id="msg" class="alert"></div>
+        <form id="form">
+            <div class="mb-3">
+                <label for="formGroupExampleInput" class="form-label"><b>Username:</b></label>
+                <input type="text" class="form-control" id="Username" placeholder="Input username">
+            </div>
+            <div class="mb-3">
+                <label for="formGroupExampleInput2" class="form-label"><b>Email:</b></label>
+                <input type="email" class="form-control" id="email" placeholder="input email">
+            </div>
+            <div class="mb-3">
+                <label for="formGroupExampleInput" class="form-label"><b>Password:</b></label>
+                <input type="password" class="form-control" id="password" placeholder="input password">
+            </div>
+            <div class="mb-3">
+                <label for="formGroupExampleInput2" class="form-label"><b>Confirm password:</b></label>
+                <input type="password" class="form-control" id="password2" placeholder="confirm password">
+            </div>
+            <button type="submit" class="btn btn-outline-primary">Submit</button>
+            <span><button type="reset" class="btn btn-outline-danger">Delete</button></span>
+        </form>
+    </div>
+</body>
+<script>
+    function register(e) {
+        e.preventDefault();
+        console.log('Submitted.....');
+
+        var Username = document.getElementById('Username').value;
+        var email = document.getElementById('email').value;
+        var password = document.getElementById('password').value;
+        var confirmpassword = document.getElementById('password2').value;
+
+        var msg = document.getElementById('msg');
+        if (Username == '' || email == '' || password == '' || password2 == '') {
+            msg.className = "alert alert-danger";
+            msg.innerHTML = 'please fill out all fields';
+        } else {
+            if (Username.length < 3 || Username.length == 3) {
+                msg.className = "alert alert-danger";
+                msg.innerHTML = 'Username should be above 3 characters';
+            } else {
+                var atpos = email.indexOf("@");
+                var dotpos = email.lastIndexOf(".");
+                if (atpos < 1 || dotpos < atpos + 2 || dotpos + 2 >= email.length) {
+                    msg.className = "alert alert-danger";
+                    msg.innerHTML = 'Please input a valid email address';
+                } else {
+                    if (password != password2) {
+                        msg.className = "alert alert-danger";
+                        msg.innerHTML = "Please check your password";
+                    } else {
+                        msg.className = "alert alert-success";
+                        msg.innerHTML = Username + ' has been registered with the email ' + email;
+                    }
+                }
+            }
+        }
+    }
+    document.getElementById('form').addEventListener('submit', register, false);
+</script>
+
+</html>
